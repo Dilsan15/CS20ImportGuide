@@ -22,12 +22,11 @@ public class Main {
 
     public static void storeCsv() {
 
-        String[] columns;
         // using buffered reader to read the csv file
         try (BufferedReader br = new BufferedReader(new FileReader("data/bird_movement.csv"))) {
 
             // Create a list of the columns in the csv file, and store them in the hashmap using a foreach loop
-            columns = br.readLine().replace("\"", "").split(",");
+            String[] columns = br.readLine().replace("\"", "").split(",");
 
 
             // Place all the columns in the hashmap as keys
@@ -44,8 +43,8 @@ public class Main {
 
                 // Handling empty cells
                 for (int i = 0; i < values.length; i++) {
-                    if (values[i].matches("^[0-9\\-\\.]+$")) {
-                        values[i] = values[i].replaceAll("[^0-9\\-\\.]", "NA");
+                    if (values[i].matches("^\\s*$")) {
+                        values[i] = "NA";
                     }
                 }
 
@@ -81,7 +80,7 @@ public class Main {
 
             // Catching any errors that may occur (most likely a file not found error)
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("Error reading file, please check the file path.");
         }
 
     }
@@ -105,10 +104,11 @@ public class Main {
         }
         System.out.println();
 
-        // Print the table contents, supports having completely empty cells
+        // Print the table contents, with 35 spaces between each. Empty cells are filled with spaces
         for (int j = 0; j < maxNumElements; j++) {
             for (String columnHeader : columnHeaders) {
                 List<Object> values = animalMovData.get(columnHeader);
+
                 if (j < values.size()) {
                     System.out.printf("%-35s", values.get(j));
                 } else {
@@ -119,7 +119,8 @@ public class Main {
         }
     }
 
-}
+} // End of Main Class
+
 
 
 
