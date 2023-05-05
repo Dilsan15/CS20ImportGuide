@@ -43,7 +43,7 @@ public class Main {
 
                 // Handling empty cells
                 for (int i = 0; i < values.length; i++) {
-                    if (values[i].matches("^\\s*$")) {
+                    if (values[i].matches("^\\s*$|.*\\s+.*")) {
                         values[i] = "NA";
                     }
                 }
